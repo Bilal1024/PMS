@@ -1,6 +1,5 @@
 class ProjectsController < ManagerController
   before_action :get_project, except: [:index, :new, :create]
-  before_action :authenticate_manager, only: [:edit, :update, :destroy]
 
   def index
     @projects = Project.all
@@ -48,12 +47,5 @@ class ProjectsController < ManagerController
 
   def get_project
     @project = Project.find(params[:id])
-  end
-
-  def authenticate_manager
-    unless @project.manager == current_user
-      flash[:error] = "Only the manager who has created the project can perform this action"
-      redirect_to projects_path
-    end
   end
 end

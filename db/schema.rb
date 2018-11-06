@@ -33,10 +33,8 @@ ActiveRecord::Schema.define(version: 2018_11_02_122600) do
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.index ["client_id"], name: "index_projects_on_client_id"
     t.index ["name"], name: "index_projects_on_name", unique: true
-    t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
   create_table "time_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -67,7 +65,6 @@ ActiveRecord::Schema.define(version: 2018_11_02_122600) do
 
   add_foreign_key "payments", "projects"
   add_foreign_key "projects", "clients"
-  add_foreign_key "projects", "users"
   add_foreign_key "time_logs", "projects"
   add_foreign_key "time_logs", "users"
 end

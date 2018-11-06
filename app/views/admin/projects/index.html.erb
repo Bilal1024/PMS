@@ -9,7 +9,6 @@
         <thead class="text-primary">
           <th>Name</th>
           <th>By</th>
-          <th>Manager</th>
           <th>Earnings</th>
           <th>Edit</th>
           <th>Delete</th>
@@ -22,9 +21,6 @@
               </td>
               <td>
                 <%= link_to titleize(project.client.name), admin_client_path(project.client), { rel: "tooltip", title: "Profile", class: "btn btn-primary btn-link btn-sm" } %>
-              </td>
-              <td>
-                <%= link_to titleize(project.manager.username), admin_user_path(project.manager), { rel: "tooltip", title: "Profile", class: "btn btn-primary btn-link btn-sm" } %>
               </td>
               <td>
                 <%= total_project_earning(project) %>

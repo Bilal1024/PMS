@@ -5,7 +5,7 @@ class ManagerController < ApplicationController
 
   def manager_check
     unless current_user.manager?
-      flash[:error] = 'Only managers can access this part of the website'
+      flash[:error] = 'Only managers can perform this action'
       redirect_to root_path
     end
   end

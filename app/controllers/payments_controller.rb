@@ -1,6 +1,5 @@
 class PaymentsController < ManagerController
   before_action :get_project
-  before_action :authenticate_manager
 
   def create
     @payment = Payment.new(payment_params)
@@ -35,12 +34,5 @@ class PaymentsController < ManagerController
 
   def get_project
     @project = Project.find(params[:project_id])
-  end
-
-  def authenticate_manager
-    unless @project.manager == current_user
-      flash[:error] = "Only the manager who has created the project can perform this action"
-      redirect_to projects_path
-    end
   end
 end

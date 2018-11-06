@@ -14,7 +14,6 @@ class User < ApplicationRecord
 
   scope :non_admin_users, -> { where.not(role: :admin) }
 
-  has_many :projects, -> { where(role: :manager) }
   has_many :time_logs, dependent: :destroy
 
   attr_writer :login
