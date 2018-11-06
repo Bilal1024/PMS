@@ -1,27 +1,36 @@
+# frozen_string_literal: true
+
 class Admin::TimeLogsController < Admin::BaseController
-  before_action :get_project
-  before_action :get_time_log, only: [:update, :destroy]
+  before_action :find_project
+  before_action :find_time_log, only: %i[update destroy]
 
   def create
-    @time_log = TimeLog.new(time_log_params)
-    @time_log.project = @project
+    @time_log = @project.time_logs.new(time_log_params)
 
     if @time_log.save
+      flash[:notice] = 'successfully added TimeLog'
       redirect_to admin_project_path(@project)
     else
-      render("projects/show")
+      @project.time_logs.delete(@time_log)
+      render('admin/projects/show')
     end
   end
 
   def update
-    @time_log.update(time_log_params)
     respond_to do |format|
-      format.json { head :ok }
+      if @time_log.update(time_log_params)
+        format.html { redirect_to(@time_log, notice: 'TimeLog was successfully updated.') }
+      else
+        format.html { render action: 'edit' }
+      end
+
+      format.json { respond_with_bip(@time_log) }
     end
   end
 
   def destroy
     @time_log.destroy
+    flash[:notice] = 'successfully deleted time log'
     redirect_to admin_project_path(@project)
   end
 
@@ -31,11 +40,11 @@ class Admin::TimeLogsController < Admin::BaseController
     params.require(:time_log).permit(:hours, :user_id)
   end
 
-  def get_project
+  def find_project
     @project = Project.find(params[:project_id])
   end
 
-  def get_time_log
+  def find_time_log
     @time_log = @project.time_logs.find(params[:id])
   end
 end

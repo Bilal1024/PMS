@@ -1,28 +1,36 @@
+# frozen_string_literal: true
+
 class PaymentsController < ManagerController
-  before_action :get_project
+  before_action :find_project
+  before_action :find_payment, only: %i[destroy update]
 
   def create
-    @payment = Payment.new(payment_params)
-    @payment.project = @project
+    @payment = @project.payments.new(payment_params)
 
     if @payment.save
+      flash[:notice] = 'successfully added payment'
       redirect_to project_path(@project)
     else
-      render("projects/show")
+      @project.payments.delete(@payment)
+      render('projects/show')
     end
   end
 
   def destroy
-    @payment = @project.payments.find(params[:id])
     @payment.destroy
+    flash[:notice] = 'successfully deleted payment'
     redirect_to project_path(@project)
   end
 
   def update
-    @payment = @project.payments.find(params[:id])
-    @payment.update(payment_params)
     respond_to do |format|
-      format.json { head :ok }
+      if @payment.update(payment_params)
+        format.html { redirect_to(@payment, notice: 'payment was successfully updated.') }
+      else
+        format.html { render action: 'edit' }
+      end
+
+      format.json { respond_with_bip(@payment) }
     end
   end
 
@@ -32,7 +40,11 @@ class PaymentsController < ManagerController
     params.require(:payment).permit(:amount)
   end
 
-  def get_project
+  def find_project
     @project = Project.find(params[:project_id])
+  end
+
+  def find_payment
+    @payment = @project.payments.find(params[:id])
   end
 end

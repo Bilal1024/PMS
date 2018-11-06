@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Admin::ClientsController < Admin::BaseController
-  before_action :get_client, except: [:index, :new, :create]
+  before_action :find_client, only: %i[update show destroy edit]
 
   def index
     @clients = Client.all
@@ -13,6 +15,7 @@ class Admin::ClientsController < Admin::BaseController
     @client = Client.new(client_params)
 
     if @client.save
+      flash[:notice] = 'successfully added client'
       redirect_to admin_clients_path
     else
       render 'new'
@@ -27,16 +30,14 @@ class Admin::ClientsController < Admin::BaseController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     @client.destroy
     redirect_to admin_clients_path
   end
 
-  def edit
-  end
+  def edit; end
 
   private
 
@@ -44,7 +45,7 @@ class Admin::ClientsController < Admin::BaseController
     params.require(:client).permit(:name)
   end
 
-  def get_client
+  def find_client
     @client = Client.find(params[:id])
   end
 end

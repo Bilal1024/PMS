@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def titleize(title)
     title.to_s.humanize
@@ -13,5 +15,9 @@ module ApplicationHelper
 
   def url_for_project
     current_user.admin? ? admin_projects_url : projects_url
+  end
+
+  def url_for_root
+    current_user.admin? ? admin_projects_url : root_url
   end
 end

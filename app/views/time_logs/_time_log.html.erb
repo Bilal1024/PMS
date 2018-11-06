@@ -18,7 +18,7 @@
               </td>
               <td>
                 <div class="dropdown">
-                  <%= best_in_place_if authenticate_user(project, time_log), [project, time_log], :hours, as: :input, html_attrs: { type: :number }, aria: { haspopup:"true", expanded: "false" }, data: { toggle: "dropdown" }, id: "navbarDropdownMenuLink", inner_class: "form-control", rel: "tooltip", title: "Click for options", class: "btn btn-primary btn-link btn-sm", activator: "#activator-#{time_log.id}" %>
+                  <%= best_in_place_if authenticate_user(time_log), [project, time_log], :hours, as: :input, html_attrs: { type: :number }, aria: { haspopup:"true", expanded: "false" }, data: { toggle: "dropdown" }, id: "navbarDropdownMenuLink", inner_class: "form-control", rel: "tooltip", title: "Click for options", class: "btn btn-primary btn-link btn-sm", activator: "#activator-#{time_log.id}" %>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                     <%= link_to "#", { class: "dropdown-item", id:"activator-#{time_log.id}" } do %>
                       <i class="material-icons">edit</i>

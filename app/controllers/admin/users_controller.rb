@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class Admin::UsersController < Admin::BaseController
-  before_action :get_user, except: [:index, :new, :create]
+  before_action :find_user, only: %i[update show destroy edit toggle_active]
 
   def index
     @users = User.non_admin_users
@@ -13,6 +15,7 @@ class Admin::UsersController < Admin::BaseController
     @user = User.new(user_params)
 
     if @user.save
+      flash[:notice] = 'successfully added User'
       redirect_to admin_users_path
     else
       render 'new'
@@ -32,16 +35,14 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     @user.destroy
     redirect_to admin_users_path
   end
 
-  def edit
-  end
+  def edit; end
 
   private
 
@@ -49,7 +50,7 @@ class Admin::UsersController < Admin::BaseController
     params.require(:user).permit(:username, :email, :password, :password_confirmation, :active, :role)
   end
 
-  def get_user
+  def find_user
     @user = User.find(params[:id])
   end
 end

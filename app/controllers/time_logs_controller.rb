@@ -1,41 +1,41 @@
+# frozen_string_literal: true
+
 class TimeLogsController < ApplicationController
-  before_action :get_project
-  before_action :get_time_log, only: [:update, :destroy]
+  before_action :find_project
+  before_action :find_time_log, only: %i[update destroy]
 
   def create
-    @time_log = TimeLog.new(time_log_params)
-    @time_log.project = @project
+    @time_log = @project.time_logs.new(time_log_params)
     @time_log.user = current_user
 
     if @time_log.save
+      flash[:notice] = 'successfully added time_log'
       redirect_to project_path(@project)
     else
-      render("projects/show")
+      @project.time_logs.delete(@time_log)
+      render('projects/show')
     end
   end
 
   def update
-    if @time_log.user != current_user
-      flash[:error] = 'you aren\'t authorized to perform this action'
-      respond_to do |format|
-        format.json { head :error }
+    return unless current_user&.manager? || @time_log.user == current_user
+
+    respond_to do |format|
+      if @time_log.update(time_log_params)
+        format.html { redirect_to(@time_log, notice: 'TimeLog was successfully updated.') }
+      else
+        format.html { render action: 'edit' }
       end
-    else
-      @time_log.update(time_log_params)
-      respond_to do |format|
-        format.json { head :ok }
-      end
+
+      format.json { respond_with_bip(@time_log) }
     end
   end
 
   def destroy
-    if @time_log.user != current_user
-      flash[:error] = 'you aren\'t authorized to perform this action'
-      redirect_to project_path(@project)
-    else
-      @time_log.destroy
-      redirect_to project_path(@project)
-    end
+    return unless current_user&.manager? || @time_log.user == current_user
+
+    @time_log.destroy
+    redirect_to project_path(@project)
   end
 
   private
@@ -44,11 +44,11 @@ class TimeLogsController < ApplicationController
     params.require(:time_log).permit(:hours)
   end
 
-  def get_project
+  def find_project
     @project = Project.find(params[:project_id])
   end
 
-  def get_time_log
+  def find_time_log
     @time_log = @project.time_logs.find(params[:id])
   end
 end

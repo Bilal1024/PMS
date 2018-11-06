@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Admin::UsersHelper
   def roles_list
-    User.roles.keys.reject{ |role| role == User::ADMIN }
+    User.roles.keys.reject { |role| role == User::ADMIN }
   end
 
   def users_array

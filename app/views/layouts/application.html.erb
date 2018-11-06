@@ -13,7 +13,7 @@
   <body>
     <div class="wrapper ">
       <%= render '/layouts/left_nav' if user_signed_in? %>
-      <div class="main-panel">
+      <div class="<%= 'main-panel' if user_signed_in? %>">
         <%= render '/layouts/header' if user_signed_in? %>
         <div class="content">
           <div class="container-fluid">

@@ -1,10 +1,15 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  get 'users/index'
-  devise_for :users
+  devise_for :users do
+    member do
+      get :profile
+    end
+  end
 
   root 'projects#index'
-  
-  namespace :admin, constraints: { id: /[0-9]+(\%7C[0-9]+)*/ } do
+
+  namespace :admin do
     resources :users do
       member do
         patch :toggle_active

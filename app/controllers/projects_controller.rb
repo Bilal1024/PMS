@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class ProjectsController < ManagerController
-  before_action :get_project, except: [:index, :new, :create]
+  before_action :find_project, only: %i[update show destroy edit]
 
   def index
     @projects = Project.all
@@ -11,9 +13,9 @@ class ProjectsController < ManagerController
 
   def create
     @project = Project.new(project_params)
-    @project.manager = current_user
 
     if @project.save
+      flash[:notice] = 'successfully added project'
       redirect_to projects_path
     else
       render 'new'
@@ -28,16 +30,14 @@ class ProjectsController < ManagerController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     @project.destroy
     redirect_to projects_path
   end
 
-  def edit
-  end
+  def edit; end
 
   private
 
@@ -45,7 +45,7 @@ class ProjectsController < ManagerController
     params.require(:project).permit(:name, :description, :client_id)
   end
 
-  def get_project
+  def find_project
     @project = Project.find(params[:id])
   end
 end
