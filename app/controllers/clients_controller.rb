@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ClientsController < ManagerController
-  before_action :find_client, only: %i[update show destroy edit]
+  before_action :set_client, only: %i[update show destroy edit]
 
   def index
     @clients = Client.all
@@ -45,7 +45,7 @@ class ClientsController < ManagerController
     params.require(:client).permit(:name)
   end
 
-  def find_client
+  def set_client
     @client = Client.find(params[:id])
   end
 end

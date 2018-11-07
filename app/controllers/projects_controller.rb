@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ProjectsController < ManagerController
-  before_action :find_project, only: %i[update show destroy edit]
+  before_action :set_project, only: %i[update show destroy edit]
 
   def index
     @projects = Project.all
@@ -45,7 +45,7 @@ class ProjectsController < ManagerController
     params.require(:project).permit(:name, :description, :client_id)
   end
 
-  def find_project
+  def set_project
     @project = Project.find(params[:id])
   end
 end

@@ -2,6 +2,6 @@
 
 module TimeLogsHelper
   def authenticate_user(time_log)
-    time_log.user == current_user
+    current_user && time_log.user_id == current_user.id
   end
 end

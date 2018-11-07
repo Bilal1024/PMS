@@ -2,7 +2,6 @@
   <div class="card">
     <div class="card-header card-header-tabs card-header-primary">
       <h4 class="card-title">Time Logs</h4>
-      <p class="card-category">List of hours spent against <%= project.name %></p>
     </div>
     <div class="card-body table-responsive">
       <table class="table table-hover">
@@ -14,13 +13,13 @@
           <% project.time_logs.each do |time_log| %>
             <tr>
               <td>
-                <%= best_in_place [:admin, project, time_log], :user_id, as: :select, collection: users_array, html_attrs: { type: :number }, inner_class: "form-control", rel: "tooltip", title: "Click to Edit", class: "btn btn-primary btn-link btn-sm" %>
+                <%= best_in_place [:admin, project, time_log], :user_id, as: :select, collection: users_array, html_attrs: { type: :number }, inner_class: "form-control", class: "btn btn-primary btn-link btn-sm" %>
               </td>
               <td>
                 <div class="dropdown">
-                  <%= best_in_place [:admin, project, time_log], :hours, as: :input, html_attrs: { type: :number }, aria: { haspopup:"true", expanded: "false" }, data: { toggle: "dropdown" }, id: "navbarDropdownMenuLink", inner_class: "form-control", rel: "tooltip", title: "Click for options", class: "btn btn-primary btn-link btn-sm", activator: "#activator-#{time_log.id}" %>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <%= link_to "#", { class: "dropdown-item", id:"activator-#{time_log.id}" } do %>
+                  <%= best_in_place [:admin, project, time_log], :hours, as: :input, html_attrs: { type: :number }, aria: { haspopup:"true", expanded: "true" }, data: { toggle: "dropdown" }, id: "navbarDropdownMenuLink", inner_class: "form-control", class: "btn btn-primary btn-link btn-sm", activator: "#activator-#{time_log.id}" %>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <%= link_to "#", { class: "dropdown-item edit", id:"activator-#{time_log.id}" } do %>
                       <i class="material-icons">edit</i>
                       Edit Log
                     <% end %>

@@ -2,7 +2,6 @@
   <div class="card">
     <div class="card-header card-header-tabs card-header-primary">
       <h4 class="card-title">Projects Listing</h4>
-      <p class="card-category">List of all the Projects with its client present in the system</p>
     </div>
     <div class="card-body table-responsive">
       <table class="table table-hover">
@@ -15,13 +14,13 @@
           <% @projects.each do |project| %>
             <tr>
               <td>
-                <%= link_to titleize(project.name), project_path(project), { rel: "tooltip", title: "View", class: "btn btn-primary btn-link btn-sm" } %>
+                <%= link_to titleize(project.name), project_path(project) %>
               </td>
               <td>
-                <%= link_to titleize(project.client.name), client_path(project.client), { rel: "tooltip", title: "Profile", class: "btn btn-primary btn-link btn-sm" } %>
+                <%= link_to titleize(project.client.name), client_path(project.client) %>
               </td>
               <td>
-                <%= total_project_earning(project) %>
+                <%= project.total_earnings %>
               </td>
             </tr>
           <% end %>

@@ -22,6 +22,7 @@
 //= require_tree .
 //= require best-in
 //= require best_in_place.jquery-ui
+//= require jquery.purr
 //= require best_in_place.purr
 
 $(document).ready(function() {

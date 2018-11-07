@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Admin::TimeLogsController < Admin::BaseController
-  before_action :find_project
-  before_action :find_time_log, only: %i[update destroy]
+  before_action :set_project
+  before_action :set_time_log, only: %i[update destroy]
 
   def create
     @time_log = @project.time_logs.new(time_log_params)
@@ -40,11 +40,11 @@ class Admin::TimeLogsController < Admin::BaseController
     params.require(:time_log).permit(:hours, :user_id)
   end
 
-  def find_project
+  def set_project
     @project = Project.find(params[:project_id])
   end
 
-  def find_time_log
+  def set_time_log
     @time_log = @project.time_logs.find(params[:id])
   end
 end

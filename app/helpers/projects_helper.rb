@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 module ProjectsHelper
-  def total_project_earning(project)
-    project.payments.sum(:amount)
-  end
-
   def control_links(resource)
     return unless current_user&.manager?
 

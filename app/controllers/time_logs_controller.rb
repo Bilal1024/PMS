@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class TimeLogsController < ApplicationController
-  before_action :find_project
-  before_action :find_time_log, only: %i[update destroy]
+  before_action :set_project
+  before_action :set_time_log, only: %i[update destroy]
 
   def create
     @time_log = @project.time_logs.new(time_log_params)
@@ -18,7 +18,7 @@ class TimeLogsController < ApplicationController
   end
 
   def update
-    return unless current_user&.manager? || @time_log.user == current_user
+    return unless current_user&.manager? || @time_log.user_id == current_user.id
 
     respond_to do |format|
       if @time_log.update(time_log_params)
@@ -32,7 +32,7 @@ class TimeLogsController < ApplicationController
   end
 
   def destroy
-    return unless current_user&.manager? || @time_log.user == current_user
+    return unless current_user&.manager? || @time_log.user_id == current_user.id
 
     @time_log.destroy
     redirect_to project_path(@project)
@@ -44,11 +44,11 @@ class TimeLogsController < ApplicationController
     params.require(:time_log).permit(:hours)
   end
 
-  def find_project
+  def set_project
     @project = Project.find(params[:project_id])
   end
 
-  def find_time_log
+  def set_time_log
     @time_log = @project.time_logs.find(params[:id])
   end
 end

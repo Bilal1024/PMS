@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admin::UsersController < Admin::BaseController
-  before_action :find_user, only: %i[update show destroy edit toggle_active]
+  before_action :set_user, only: %i[update show destroy edit toggle_active]
 
   def index
     @users = User.non_admin_users
@@ -50,7 +50,7 @@ class Admin::UsersController < Admin::BaseController
     params.require(:user).permit(:username, :email, :password, :password_confirmation, :active, :role)
   end
 
-  def find_user
+  def set_user
     @user = User.find(params[:id])
   end
 end

@@ -2,7 +2,6 @@
   <div class="card">
     <div class="card-header card-header-tabs card-header-primary">
       <h4 class="card-title">Clients Listing</h4>
-      <p class="card-category">List of all the clients with thier projects in the system</p>
     </div>
     <div class="card-body table-responsive">
       <table class="table table-hover">
@@ -16,13 +15,13 @@
           <% @clients.each do |client| %>
             <tr>
               <td>
-                <%= link_to titleize(client.name), admin_client_path(client), { rel: "tooltip", title: "Profile", class: "btn btn-primary btn-link btn-sm" } %>
+                <%= link_to titleize(client.name), admin_client_path(client) %>
               </td>
               <td>
                 <%= client.projects.count %>
               </td>
               <td>
-                <%= link_to edit_admin_client_path(client), { rel: "tooltip", title: "Edit Client", class: "btn btn-primary btn-link btn-sm" } do %>
+                <%= link_to edit_admin_client_path(client) do %>
                   <i class="material-icons">edit</i>
                 <% end %>
               </td>

@@ -63,7 +63,6 @@ BestInPlaceEditor.prototype = {
 
             }
         }
-
         this.oldValue = this.isPlaceHolder() ? "" : this.element.html();
         this.display_value = to_display;
         jQuery(this.activator).unbind("click", this.clickHandler);
@@ -414,6 +413,10 @@ BestInPlaceEditor.forms = {
             this.element.find("input").bind('keyup', {editor: this}, BestInPlaceEditor.forms.input.keyupHandler);
             this.blurTimer = null;
             this.userClicked = false;
+            $(output).find('input').click(function function_name(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            })
         },
 
         getValue: function () {
