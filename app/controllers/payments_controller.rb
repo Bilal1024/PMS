@@ -7,13 +7,7 @@ class PaymentsController < ManagerController
   def create
     @payment = @project.payments.new(payment_params)
 
-    if @payment.save
-      flash[:notice] = 'successfully added payment'
-      redirect_to project_path(@project)
-    else
-      @project.payments.delete(@payment)
-      render('projects/show')
-    end
+    flash[:notice] = 'successfully added payment' if @payment.save
   end
 
   def destroy

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root 'projects#index'
+
   devise_for :users do
     member do
       get :profile
     end
   end
-
-  root 'projects#index'
 
   namespace :admin do
     resources :users do

@@ -8,13 +8,7 @@ class TimeLogsController < ApplicationController
     @time_log = @project.time_logs.new(time_log_params)
     @time_log.user = current_user
 
-    if @time_log.save
-      flash[:notice] = 'successfully added time_log'
-      redirect_to project_path(@project)
-    else
-      @project.time_logs.delete(@time_log)
-      render('projects/show')
-    end
+    flash[:notice] = 'successfully added time_log' if @time_log.save
   end
 
   def update
@@ -34,7 +28,8 @@ class TimeLogsController < ApplicationController
   def destroy
     return unless current_user&.manager? || @time_log.user_id == current_user.id
 
-    @time_log.destroy
+    flash[:notice] = 'successfully deleted time log' if @time_log.destroy
+
     redirect_to project_path(@project)
   end
 

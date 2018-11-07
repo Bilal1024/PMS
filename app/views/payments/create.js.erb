@@ -1,0 +1,19 @@
+$(".form-group").removeClass("has-danger");
+$(".notice").remove();
+
+<% if @payment.errors.any? %>
+  <% if @payment.errors[:amount].any? %>
+    <% @payment.errors[:amount].each do |error| %>
+        $("#amountBlock").append('<div class="notice text-danger"><%=j error%></div>');
+      <% end %>
+      $("#amountBlock").closest(".form-group").addClass("has-danger");
+  <% end %>
+<% else %>
+  $('.flash').html("<%= j render 'shared/flash', flash: flash %>");
+  <% flash.discard %>
+  $(".payments tbody").append('<%=j render "payments/payment", project: @project, payment: @payment %>')
+  $("#PaymentModal").modal("toggle");
+  $("#PaymentModal input").each(function (){
+    $(this).val("");
+  })
+<% end %>

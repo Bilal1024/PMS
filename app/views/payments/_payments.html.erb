@@ -1,0 +1,63 @@
+<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+  <div class="card">
+    <div class="card-header card-header-tabs card-header-primary">
+      <h4 class="card-title">Payments
+        <% if current_user.manager? %>
+          <a class="pull-right" href="#" data-toggle="modal" data-target="#PaymentModal">
+            <i class="material-icons">add</i>
+          </a>
+        <% end %>
+      </h4>
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-hover payments">
+        <thead class="text-primary">
+          <th>Amount</th>
+          <% if current_user.manager? %>
+            <th>Delete</th>
+          <% end %>
+        </thead>
+        <tbody>
+          <% project.payments.each do |payment| %>
+            <tr>
+              <td>
+                <%= best_in_place [project, payment], :amount, as: :input, html_attrs: { type: :number }, inner_class: "form-control", class: "btn btn-primary btn-link btn-sm" %>
+              </td>
+              <% if current_user.manager? %>
+                <td>
+                  <%= link_to project_payment_path(project, payment), { rel: "tooltip", title: "Delete Payment", class: "btn btn-primary btn-link btn-sm", method: :delete, data: { confirm: 'Are you sure?' } }  do %>
+                    <i class="material-icons">delete</i>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <% if current_user.manager? %>
+      <div class="modal" id="PaymentModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Payment</h4>
+              <button type="button" class="close btn btn-link" data-dismiss="modal">
+                <i class="material-icons">close</i>
+              </button>
+            </div>
+
+            <div class="modal-body">
+              <%= render 'payments/form', project: project, payment: project.payments.build %>
+            </div>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 errors"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

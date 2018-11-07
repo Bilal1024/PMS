@@ -9,9 +9,11 @@
     </div>
   </div>
 
+  <%= render 'shared/flash' %>
+
   <div class="row">
-    <%= render 'payments/payment', project: @project %>
-    <%= render 'time_logs/time_log', project: @project %>
+    <%= render 'payments/payments', project: @project %>
+    <%= render 'time_logs/time_logs', project: @project %>
   </div>
 
   <div class="link">

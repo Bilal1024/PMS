@@ -20,4 +20,11 @@ module ApplicationHelper
   def url_for_root
     current_user.admin? ? admin_projects_url : root_url
   end
+
+  def flash_class(level)
+    case level
+    when 'notice' then 'alert alert-info'
+    when 'alert' then 'alert alert-danger'
+    end
+  end
 end
