@@ -7,30 +7,17 @@ class Admin::PaymentsController < Admin::BaseController
   def create
     @payment = @project.payments.new(payment_params)
 
-    if @payment.save
-      flash[:notice] = 'successfully added payment'
-      redirect_to admin_project_path(@project)
-    else
-      @project.payments.delete(@payment)
-      render('admin/projects/show')
-    end
+    flash.now[:notice] = 'Payment was created successfully.' if @payment.save
   end
 
   def update
-    respond_to do |format|
-      if @payment.update(payment_params)
-        format.html { redirect_to(@payment, notice: 'payment was successfully updated.') }
-      else
-        format.html { render action: 'edit' }
-      end
-
-      format.json { respond_with_bip(@payment) }
-    end
+    @payment.update(payment_params)
+    respond_with_bip(@payment)
   end
 
   def destroy
     @payment.destroy
-    redirect_to admin_project_path(@project)
+    redirect_to admin_project_path(@project), notice: 'Payment was deleted successfully.'
   end
 
   private

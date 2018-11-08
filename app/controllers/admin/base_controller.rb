@@ -4,9 +4,8 @@ class Admin::BaseController < ApplicationController
   before_action :admin_check
 
   def admin_check
-    return if current_user &. admin?
+    return if current_user&.admin?
 
-    flash[:error] = 'Only admins can access this part of the website'
-    redirect_to root_path
+    redirect_to root_path, error: 'Invalid access'
   end
 end

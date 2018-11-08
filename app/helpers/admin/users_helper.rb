@@ -6,10 +6,10 @@ module Admin::UsersHelper
   end
 
   def users_array
-    User.where.not(role: :admin).pluck(:id, :username)
+    User.non_admin_users.pluck(:id, :username)
   end
 
   def users_list
-    User.where.not(role: :admin)
+    User.non_admin_users
   end
 end

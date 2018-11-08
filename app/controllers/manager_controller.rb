@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 class ManagerController < ApplicationController
-  before_action :manager_check, only: %i[new create destroy edit]
+  before_action :manager_check, only: %i[new create destroy edit update]
 
   private
 
   def manager_check
     return if current_user&.manager?
 
-    flash[:error] = 'Only managers can perform this action'
-    redirect_to root_path
+    redirect_to root_path, error: 'Invalid Access'
   end
 end

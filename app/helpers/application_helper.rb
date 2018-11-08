@@ -21,10 +21,24 @@ module ApplicationHelper
     current_user.admin? ? admin_projects_url : root_url
   end
 
+  def authenticate_manager
+    current_user&.manager?
+  end
+
   def flash_class(level)
     case level
     when 'notice' then 'alert alert-info'
     when 'alert' then 'alert alert-danger'
+    end
+  end
+
+  def error_class(resource, field)
+    resource.errors[field].any? ? 'form-group has-danger' : 'form-group'
+  end
+
+  def errors_div(resource, field)
+    content_tag :div, class: 'notice text-danger' do
+      resource.errors[field].to_sentence if resource.errors[field].any?
     end
   end
 end

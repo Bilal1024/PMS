@@ -21,7 +21,7 @@
           <% project.payments.each do |payment| %>
             <tr>
               <td>
-                <%= best_in_place [project, payment], :amount, as: :input, html_attrs: { type: :number }, inner_class: "form-control", class: "btn btn-primary btn-link btn-sm" %>
+                <%= best_in_place_if authenticate_manager, [project, payment], :amount, as: :input, html_attrs: { type: :number }, inner_class: "form-control", class: "btn btn-primary btn-link btn-sm" %>
               </td>
               <% if current_user.manager? %>
                 <td>

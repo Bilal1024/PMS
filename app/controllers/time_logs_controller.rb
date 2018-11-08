@@ -3,32 +3,22 @@
 class TimeLogsController < ApplicationController
   before_action :set_project
   before_action :set_time_log, only: %i[update destroy]
+  before_action :authenticate, only: %i[update destroy]
 
   def create
     @time_log = @project.time_logs.new(time_log_params)
     @time_log.user = current_user
 
-    flash[:notice] = 'successfully added time_log' if @time_log.save
+    flash.now[:notice] = 'TimeLog was created successfully.' if @time_log.save
   end
 
   def update
-    return unless current_user&.manager? || @time_log.user_id == current_user.id
-
-    respond_to do |format|
-      if @time_log.update(time_log_params)
-        format.html { redirect_to(@time_log, notice: 'TimeLog was successfully updated.') }
-      else
-        format.html { render action: 'edit' }
-      end
-
-      format.json { respond_with_bip(@time_log) }
-    end
+    @time_log.update(time_log_params)
+    respond_with_bip(@time_log)
   end
 
   def destroy
-    return unless current_user&.manager? || @time_log.user_id == current_user.id
-
-    flash[:notice] = 'successfully deleted time log' if @time_log.destroy
+    flash.now[:notice] = 'TimeLog was deleted successfully.' if @time_log.destroy
 
     redirect_to project_path(@project)
   end
@@ -45,5 +35,11 @@ class TimeLogsController < ApplicationController
 
   def set_time_log
     @time_log = @project.time_logs.find(params[:id])
+  end
+
+  def authenticate
+    return if current_user&.manager? || @time_log.user_id == current_user.id
+
+    redirect_to root_path, error: 'Invalid access'
   end
 end

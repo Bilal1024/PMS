@@ -1,8 +1,9 @@
-<%= form_for [:admin, @project, @project.payments.build] do |f| %>
+<%= form_for [:admin, project, payment], remote: true do |f| %>
   <div class="col-md-12">
     <div class="form-group">
       <%= f.label :amount, class: "bmd-label-floating" %>
       <%= f.number_field :amount, class: "form-control" %>
+      <span id="amountBlock" class="help-block"></span>
     </div>
 
     <%= f.submit class: "btn btn-primary pull-right" %>
