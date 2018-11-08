@@ -7,6 +7,7 @@ class PaymentsController < ManagerController
   def create
     @payment = @project.payments.new(payment_params)
 
+<<<<<<< HEAD
     if @payment.save
       flash[:notice] = 'successfully added payment'
       redirect_to project_path(@project)
@@ -14,24 +15,19 @@ class PaymentsController < ManagerController
       @project.payments.delete(@payment)
       render('projects/show')
     end
+=======
+    flash.now[:notice] = 'Payment was created successfully.' if @payment.save
+>>>>>>> 932fd73... Displayed error messages for validation errors
   end
 
   def destroy
     @payment.destroy
-    flash[:notice] = 'successfully deleted payment'
-    redirect_to project_path(@project)
+    redirect_to project_path(@project), notice: 'Payment was deleted successfully.'
   end
 
   def update
-    respond_to do |format|
-      if @payment.update(payment_params)
-        format.html { redirect_to(@payment, notice: 'payment was successfully updated.') }
-      else
-        format.html { render action: 'edit' }
-      end
-
-      format.json { respond_with_bip(@payment) }
-    end
+    @payment.update(payment_params)
+    respond_with_bip(@payment)
   end
 
   private

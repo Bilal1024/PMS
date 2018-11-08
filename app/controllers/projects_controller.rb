@@ -4,7 +4,7 @@ class ProjectsController < ManagerController
   before_action :find_project, only: %i[update show destroy edit]
 
   def index
-    @projects = Project.all
+    @projects = Project.includes(:client)
   end
 
   def new
@@ -15,8 +15,7 @@ class ProjectsController < ManagerController
     @project = Project.new(project_params)
 
     if @project.save
-      flash[:notice] = 'successfully added project'
-      redirect_to projects_path
+      redirect_to projects_path, notice: 'Project was created successfully.'
     else
       render 'new'
     end
@@ -24,7 +23,7 @@ class ProjectsController < ManagerController
 
   def update
     if @project.update(project_params)
-      redirect_to project_path(@project)
+      redirect_to project_path(@project), notice: 'Project was updated successfully.'
     else
       render 'edit'
     end
@@ -34,7 +33,7 @@ class ProjectsController < ManagerController
 
   def destroy
     @project.destroy
-    redirect_to projects_path
+    redirect_to projects_path, notice: 'Project was deleted successfully.'
   end
 
   def edit; end

@@ -15,8 +15,7 @@ class Admin::ClientsController < Admin::BaseController
     @client = Client.new(client_params)
 
     if @client.save
-      flash[:notice] = 'successfully added client'
-      redirect_to admin_clients_path
+      redirect_to admin_clients_path, notice: 'Client was created successfully.'
     else
       render 'new'
     end
@@ -24,7 +23,7 @@ class Admin::ClientsController < Admin::BaseController
 
   def update
     if @client.update(client_params)
-      redirect_to admin_client_path(@client)
+      redirect_to admin_client_path(@client), notice: 'Client was updated successfully.'
     else
       render 'edit'
     end
@@ -34,7 +33,7 @@ class Admin::ClientsController < Admin::BaseController
 
   def destroy
     @client.destroy
-    redirect_to admin_clients_path
+    redirect_to admin_clients_path, notice: 'Client was deleted successfully.'
   end
 
   def edit; end

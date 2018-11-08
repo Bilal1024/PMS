@@ -15,8 +15,7 @@ class Admin::UsersController < Admin::BaseController
     @user = User.new(user_params)
 
     if @user.save
-      flash[:notice] = 'successfully added User'
-      redirect_to admin_users_path
+      redirect_to admin_users_path, notice: 'User was created successfully.'
     else
       render 'new'
     end
@@ -24,12 +23,12 @@ class Admin::UsersController < Admin::BaseController
 
   def toggle_active
     @user.toggle_active
-    redirect_back fallback_location: admin_users_path
+    redirect_back fallback_location: admin_users_path, notice: 'Toggled status successfully.'
   end
 
   def update
     if @user.update_without_password(user_params)
-      redirect_to admin_user_path(@user)
+      redirect_to admin_user_path(@user), notice: 'User was updated successfully.'
     else
       render 'edit'
     end
@@ -39,7 +38,7 @@ class Admin::UsersController < Admin::BaseController
 
   def destroy
     @user.destroy
-    redirect_to admin_users_path
+    redirect_to admin_users_path, notice: 'User was deleted successfully.'
   end
 
   def edit; end

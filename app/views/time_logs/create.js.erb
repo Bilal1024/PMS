@@ -1,0 +1,16 @@
+$(".form-group").removeClass("has-danger");
+$(".notice").remove();
+
+<% if @time_log.errors.any? %>
+  <% if @time_log.errors[:hours].any? %>
+    $("#hoursBlock").append('<%=j render "shared/errors", resource: @time_log, field: :hours %>');
+    $("#hoursBlock").closest(".form-group").addClass("has-danger");
+  <% end %>
+<% else %>
+  $('.flash').html("<%= j render 'shared/flash', flash: flash %>");
+  $(".time_logs tbody").append('<%=j render "time_logs/time_log", project: @project, time_log: @time_log %>')
+  $("#TimeLogModal").modal("toggle");
+  $("#TimeLogModal input").each(function (){
+    $(this).val("");
+  })
+<% end %>

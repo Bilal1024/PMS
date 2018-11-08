@@ -7,31 +7,17 @@ class Admin::TimeLogsController < Admin::BaseController
   def create
     @time_log = @project.time_logs.new(time_log_params)
 
-    if @time_log.save
-      flash[:notice] = 'successfully added TimeLog'
-      redirect_to admin_project_path(@project)
-    else
-      @project.time_logs.delete(@time_log)
-      render('admin/projects/show')
-    end
+    flash.now[:notice] = 'TimeLog was created successfully.' if @time_log.save
   end
 
   def update
-    respond_to do |format|
-      if @time_log.update(time_log_params)
-        format.html { redirect_to(@time_log, notice: 'TimeLog was successfully updated.') }
-      else
-        format.html { render action: 'edit' }
-      end
-
-      format.json { respond_with_bip(@time_log) }
-    end
+    @time_log.update(time_log_params)
+    respond_with_bip(@time_log)
   end
 
   def destroy
     @time_log.destroy
-    flash[:notice] = 'successfully deleted time log'
-    redirect_to admin_project_path(@project)
+    redirect_to admin_project_path(@project), notice: 'TimeLog was deleted successfully'
   end
 
   private

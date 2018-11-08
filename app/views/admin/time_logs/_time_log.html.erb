@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
   <div class="card">
     <div class="card-header card-header-tabs card-header-primary">
@@ -40,3 +41,25 @@
     <%= render 'admin/time_logs/form', project: project, time_log: project.time_logs.build %>
   </div>
 </div>
+=======
+<tr>
+  <td>
+    <%= best_in_place [:admin, project, time_log], :user_id, as: :select, collection: users_array, html_attrs: { type: :number }, inner_class: "form-control", class: "btn btn-primary btn-link btn-sm" %>
+  </td>
+  <td>
+    <div class="dropdown">
+      <%= best_in_place [:admin, project, time_log], :hours, as: :input, html_attrs: { type: :number }, aria: { haspopup:"true", expanded: "true" }, data: { toggle: "dropdown" }, id: "navbarDropdownMenuLink", inner_class: "form-control", class: "btn btn-primary btn-link btn-sm", activator: "#activator-#{time_log.id}" %>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <%= link_to "#", { class: "dropdown-item edit", id:"activator-#{time_log.id}" } do %>
+          <i class="material-icons">edit</i>
+          Edit Log
+        <% end %>
+        <%= link_to admin_project_time_log_path(project, time_log), { class: "dropdown-item", method: :delete } do %>
+          <i class="material-icons">delete</i>
+          Delete Log
+        <% end %>
+      </div>
+    </div>
+  </td>
+</tr>
+>>>>>>> 932fd73... Displayed error messages for validation errors
