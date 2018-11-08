@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 class Admin::BaseController < ApplicationController
- before_action :admin_check
+  before_action :admin_check
 
   def admin_check
-    unless current_user.admin?
-      flash[:error] = 'Only admins can access this part of the website'
-      redirect_to root_path
-    end
+    return if current_user&.admin?
+
+    redirect_to root_path, error: 'Invalid access'
   end
 end

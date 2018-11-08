@@ -1,0 +1,14 @@
+<%= form_for [project, time_log] do |f| %>
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.label :hours, class: "bmd-label-floating" %>
+      <%= f.number_field :hours, class: "form-control" %>
+<<<<<<< HEAD
+=======
+      <span id="hoursBlock" class="help-block"></span>
+>>>>>>> 932fd73... Displayed error messages for validation errors
+    </div>
+
+    <%= f.submit class: "btn btn-primary pull-right" %>
+  </div>
+<% end %>

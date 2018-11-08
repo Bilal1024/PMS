@@ -1,21 +1,24 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   rescue_from ActionController::RoutingError, with: :route_not_found
 
-	protected
+  protected
+
   def configure_permitted_parameters
-  	added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
-    devise_parameter_sanitizer.permit(:account_update, keys: added_attrs)
-    devise_parameter_sanitizer.permit(:sign_up, keys: added_attrs)
+    premitted_attributes = %i[username email password password_confirmation remember_me]
+    devise_parameter_sanitizer.permit(:account_update, keys: premitted_attributes)
+    devise_parameter_sanitizer.permit(:sign_up, keys: premitted_attributes)
   end
 
   def after_sign_in_path_for(resource)
     if resource.admin?
-      admin_users_path
+      admin_projects_path
     elsif resource.manager?
-      clients_path
+      projects_path
     else
       root_path
     end

@@ -10,13 +10,26 @@
     <h6 class="card-category text-gray"><%= titleize(@user.role) %></h6>
     <h6 class="card-title"><%= @user.email %></h6>
     <p class="card-description">
-      Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+
+<<<<<<< HEAD
     </p>
     <%= link_to user_status(@user.active), toggle_active_admin_user_path(@user), method: :patch, class: "btn btn-primary btn-round" %>
     <%= link_to "Edit", edit_admin_user_path(@user), class: "btn btn-primary btn-round" %>
     <%= link_to "Delete", admin_user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary btn-round" %>
     <div class="link">
       <%= link_to 'Back', admin_users_path, class: "btn btn-primary" %>
+=======
+      </p>
+
+      <%= render 'shared/flash' %>
+
+      <%= link_to user_status(@user.active), toggle_active_admin_user_path(@user), method: :patch, class: "btn btn-primary btn-round" %>
+      <%= link_to "Edit", edit_admin_user_path(@user), class: "btn btn-primary btn-round" %>
+      <%= link_to "Delete", admin_user_path(@user), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary btn-round" %>
+      <div class="link">
+        <%= link_to 'Back', admin_users_path, class: "btn btn-primary" %>
+      </div>
+>>>>>>> 932fd73... Displayed error messages for validation errors
     </div>
   </div>
 </div>

@@ -1,0 +1,23 @@
+<div class="col-md-12">
+  <div class="card card-profile">
+    <div class="card-body">
+      <h4 class="card-title"><%= titleize(@project.name) %></h4>
+      <p class="card-description">
+        <%= @project.description %>
+      </p>
+      <%= link_to "Edit", edit_admin_project_path(@project), class: "btn btn-primary btn-round" %>
+      <%= link_to "Delete", admin_project_path(@project), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-primary btn-round" %>
+    </div>
+  </div>
+
+  <%= render 'shared/flash' %>
+
+  <div class="row">
+    <%= render 'admin/payments/payments', project: @project %>
+    <%= render 'admin/time_logs/time_logs', project: @project %>
+  </div>
+
+  <div class="link">
+    <%= link_to 'Back', admin_projects_path, class: "btn btn-primary" %>
+  </div>
+</div>

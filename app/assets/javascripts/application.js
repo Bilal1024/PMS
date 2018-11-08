@@ -20,3 +20,7 @@
 //= require material-dashboard.min
 //= require perfect-scrollbar.jquery.min
 //= require_tree .
+//= require best-in
+//= require best_in_place.jquery-ui
+//= require best_in_place.purr
+//= require jquery.purr

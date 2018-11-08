@@ -1,0 +1,14 @@
+<%= form_for [project, payment] do |f| %>
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.label :amount, class: "bmd-label-floating" %>
+      <%= f.number_field :amount, class: "form-control" %>
+<<<<<<< HEAD
+=======
+      <span id="amountBlock" class="help-block"></span>
+>>>>>>> 932fd73... Displayed error messages for validation errors
+    </div>
+
+    <%= f.submit class: "btn btn-primary pull-right" %>
+  </div>
+<% end %>

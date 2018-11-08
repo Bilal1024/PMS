@@ -1,12 +1,12 @@
 <div class="sidebar" data-color="purple" data-background-color="white" data-image=<%= asset_path 'sidebar-1.jpg' %>>
   <div class="logo">
-    <%= link_to "PMS", root_url, { class: "simple-text logo-normal" } %>
+    <%= link_to "PMS", url_for_root, { class: "simple-text logo-normal" } %>
   </div>
 
   <div class="sidebar-wrapper">
     <ul class="nav">
       <li class="nav-item">
-        <%= link_to root_url, class: "nav-link" do %>
+        <%= link_to url_for_project, class: "nav-link" do %>
           <i class="material-icons">group_work</i>
           <p>Projects</p>
         <% end %>
