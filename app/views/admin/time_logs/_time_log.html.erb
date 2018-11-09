@@ -4,8 +4,8 @@
   </td>
   <td>
     <div class="dropdown">
-      <%= best_in_place [:admin, project, time_log], :hours, as: :input, html_attrs: { type: :number }, aria: { haspopup:"true", expanded: "true" }, data: { toggle: "dropdown" }, id: "navbarDropdownMenuLink", inner_class: "form-control", class: "btn btn-primary btn-link btn-sm", activator: "#activator-#{time_log.id}" %>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+      <%= best_in_place [:admin, project, time_log], :hours, as: :input, html_attrs: { type: :number }, aria: { haspopup:"true", expanded: "true" }, data: { toggle: "dropdown" }, inner_class: "form-control", class: "btn btn-primary btn-link btn-sm", activator: "#activator-#{time_log.id}" %>
+      <div class="dropdown-menu">
         <%= link_to "#", { class: "dropdown-item edit", id:"activator-#{time_log.id}" } do %>
           <i class="material-icons">edit</i>
           Edit Log

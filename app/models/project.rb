@@ -3,6 +3,7 @@
 class Project < ApplicationRecord
   has_many :payments, dependent: :destroy
   has_many :time_logs, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   belongs_to :client
 

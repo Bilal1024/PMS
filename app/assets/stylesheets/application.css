@@ -28,3 +28,24 @@ table thead tr th {
 .link {
   text-align: center;
 }
+
+.row-bordered:after {
+  content: "";
+  display: block;
+  border-bottom: 1px solid #ccc;
+  margin: 0 15px;
+}
+
+.menu {
+  float: right;
+  color: black;
+}
+
+.menu:after {
+  cursor: pointer;
+  content: '•••';
+  position: absolute;
+  margin-left: 10px;
+  transform: rotate(90deg);
+  font-size: 15px; 
+}

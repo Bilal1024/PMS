@@ -3,11 +3,11 @@ $(".notice").remove();
 
 <% if @payment.errors.any? %>
   <% if @payment.errors[:amount].any? %>
-    $("#amountBlock").append('<%=j render "shared/errors", resource: @payment, field: :amount %>');
+    $("#amountBlock").append('<%= errors_div @payment, :amount %>');
     $("#amountBlock").closest(".form-group").addClass("has-danger");
   <% end %>
 <% else %>
-  $('.flash').html("<%= j render 'shared/flash', flash: flash %>");
+  <%= render 'shared/notification', flash: flash %>
   $(".payments tbody").append('<%=j render "payments/payment", project: @project, payment: @payment %>')
   $("#PaymentModal").modal("toggle");
   $("#PaymentModal input").each(function (){

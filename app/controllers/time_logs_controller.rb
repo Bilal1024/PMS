@@ -18,7 +18,7 @@ class TimeLogsController < ApplicationController
   end
 
   def destroy
-    flash.now[:notice] = 'TimeLog was deleted successfully.' if @time_log.destroy
+    flash[:notice] = 'TimeLog was deleted successfully.' if @time_log.destroy
 
     redirect_to project_path(@project)
   end

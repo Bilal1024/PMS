@@ -29,5 +29,6 @@ Rails.application.routes.draw do
   resources :projects do
     resources :payments
     resources :time_logs
+    resources :comments
   end
 end
