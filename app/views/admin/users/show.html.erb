@@ -1,7 +1,7 @@
 <div class="offset-md-2 col-md-8">
   <div class="card card-profile">
     <div class="card-avatar">
-       <%= image_tag "faces/marc.jpg" %> />
+       <%= image_tag @user.attachment.avatar.url %> />
     </div>
     <div class="card-body">
       <h4 class="card-title"><%= titleize(@user.username) %></h4>

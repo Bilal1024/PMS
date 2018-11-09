@@ -46,7 +46,7 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :password_confirmation, :active, :role)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation, :active, :role, attachment_attributes: %i[id avatar])
   end
 
   def set_user

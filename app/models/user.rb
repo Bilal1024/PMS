@@ -3,12 +3,18 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
+  has_one :attachment, as: :attachable, dependent: :destroy
+
+  has_many :time_logs, dependent: :destroy
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          authentication_keys: [:login]
 
   validate :validate_username
   validates :username, presence: true, uniqueness: { case_sensitive: false }, format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true }
+  validates :attachment, presence: true
 
   ADMIN = 'admin'
 
@@ -16,7 +22,7 @@ class User < ApplicationRecord
 
   scope :non_admin_users, -> { where.not(role: :admin) }
 
-  has_many :time_logs, dependent: :destroy
+  accepts_nested_attributes_for :attachment, allow_destroy: true
 
   attr_writer :login
 

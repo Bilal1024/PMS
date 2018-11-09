@@ -58,6 +58,19 @@
     </div>
   </div>
 
+  <% @user.build_attachment if @user.new_record? %>
+
+  <%= f.fields_for :attachment do |picture| %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="<%= attachment_error_class @user, [:attachment, :"attachment.avatar_content_type", :"attachment.avatar"] %>">
+          <%= picture.label :avatar, class: "bmd-label-floating" %>
+          <%= picture.file_field :avatar, class: "form-control" %>
+          <%= attachment_errors_div @user, [:attachment, :"attachment.avatar_content_type", :"attachment.avatar"] %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <%= f.submit class: "btn btn-primary col-md-12" %>
 

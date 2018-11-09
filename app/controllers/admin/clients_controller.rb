@@ -41,7 +41,7 @@ class Admin::ClientsController < Admin::BaseController
   private
 
   def client_params
-    params.require(:client).permit(:name)
+    params.require(:client).permit(:name, attachment_attributes: %i[id avatar])
   end
 
   def set_client

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    premitted_attributes = %i[username email password password_confirmation remember_me]
+    premitted_attributes = [:username, :email, :password, :password_confirmation, :remember_me, attachment_attributes: %i[id avatar]]
     devise_parameter_sanitizer.permit(:account_update, keys: premitted_attributes)
     devise_parameter_sanitizer.permit(:sign_up, keys: premitted_attributes)
   end

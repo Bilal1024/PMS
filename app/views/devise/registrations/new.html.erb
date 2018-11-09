@@ -5,8 +5,19 @@
     <div class="card-header card-header-primary">
       <h4 class="card-title">Sign up</h4>
     </div>
+
     <div class="card-body">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <% if resource.errors.any? %>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-danger">
+                <%= devise_error_messages! %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
@@ -42,6 +53,19 @@
             </div>
           </div>
         </div>
+
+        <% resource.build_attachment %>
+
+        <%= f.fields_for :attachment do |picture| %>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <%= picture.label :avatar, class: "bmd-label-floating" %>
+                <%= picture.file_field :avatar, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+        <% end %>
 
         <%= f.submit "Sign up", class: "btn btn-primary col-md-12" %>
 

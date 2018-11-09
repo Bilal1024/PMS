@@ -38,7 +38,24 @@ module ApplicationHelper
 
   def errors_div(resource, field)
     content_tag :div, class: 'notice text-danger' do
-      resource.errors[field].to_sentence if resource.errors[field].any?
+      resource.errors.full_messages_for(field).to_sentence.humanize if resource.errors[field].any?
+    end
+  end
+
+  def attachment_error_class(resource, fields)
+    fields.each do |field|
+      return 'form-group has-danger' if resource.errors[field].any?
+    end
+    'form-group'
+  end
+
+  def attachment_errors_div(resource, fields)
+    errors = []
+    fields.each do |field|
+      errors << resource.errors.full_messages_for(field).to_sentence if resource.errors[field].any?
+    end
+    content_tag :div, class: 'notice text-danger' do
+      errors.to_sentence.humanize
     end
   end
 end
