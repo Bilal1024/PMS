@@ -40,6 +40,6 @@ class TimeLogsController < ApplicationController
   def authenticate
     return if current_user&.manager? || @time_log.user_id == current_user.id
 
-    redirect_to root_path, error: 'Invalid access'
+    redirect_to root_path, flash: { error: 'Invalid access' }
   end
 end

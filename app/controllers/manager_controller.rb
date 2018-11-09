@@ -8,6 +8,6 @@ class ManagerController < ApplicationController
   def manager_check
     return if current_user&.manager?
 
-    redirect_to root_path, error: 'Invalid Access'
+    redirect_to root_path, flash: { error: 'Invalid access' }
   end
 end

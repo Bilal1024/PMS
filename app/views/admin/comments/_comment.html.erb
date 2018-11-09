@@ -1,0 +1,31 @@
+<div class="card">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 card-header">
+      <%= image_tag "faces/marc.jpg", height: 50, width: 50, class: "rounded pull-left" %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div>
+              <span class="font-weight-bold"><%= link_to comment.user.username, admin_user_path(comment.user) %></span>
+              <span class="menu" data-toggle="dropdown"></span>
+              <div class="dropdown-menu">
+                <%= link_to "#", { class: "dropdown-item edit", id:"activator-#{comment.id}" }  do %>
+                  <i class="material-icons">edit</i>
+                  Edit Comment
+                <% end %>
+                <%= link_to admin_project_comment_path(resource, comment), { class: "dropdown-item", method: :delete } do %>
+                  <i class="material-icons">delete</i>
+                  Delete Comment
+                <% end %>
+              </div>
+              <span class="pull-right"><%= comment.created_at.localtime.to_date %></span>
+            </div>
+            <div>
+              <span><%= best_in_place [:admin, resource, comment], :body, as: :textarea, inner_class: "form-control", activator: "#activator-#{comment.id}" %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

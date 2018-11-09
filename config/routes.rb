@@ -19,16 +19,13 @@ Rails.application.routes.draw do
     resources :clients
 
     resources :projects do
-      resources :payments
-      resources :time_logs
+      resources :payments, :time_logs, :comments
     end
   end
 
   resources :clients
 
   resources :projects do
-    resources :payments
-    resources :time_logs
-    resources :comments
+    resources :payments, :time_logs, :comments
   end
 end

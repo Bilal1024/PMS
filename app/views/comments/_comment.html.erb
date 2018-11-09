@@ -7,21 +7,23 @@
           <div class="col-md-12">
             <div>
               <span class="font-weight-bold"><%= comment.user.username %></span>
-              <span class="menu" data-toggle="dropdown"></span>
-              <div class="dropdown-menu">
-                <%= link_to "#", { class: "dropdown-item edit", id:"activator-#{comment.id}" }  do %>
-                  <i class="material-icons">edit</i>
-                  Edit Comment
-                <% end %>
-                <%= link_to project_comment_path(resource, comment), { class: "dropdown-item", method: :delete } do %>
-                  <i class="material-icons">delete</i>
-                  Delete Comment
-                <% end %>
-              </div>
+              <% if authenticate_user(comment) %>
+                <span class="menu" data-toggle="dropdown"></span>
+                <div class="dropdown-menu">
+                  <%= link_to "#", { class: "dropdown-item edit", id:"activator-#{comment.id}" }  do %>
+                    <i class="material-icons">edit</i>
+                    Edit Comment
+                  <% end %>
+                  <%= link_to project_comment_path(resource, comment), { class: "dropdown-item", method: :delete } do %>
+                    <i class="material-icons">delete</i>
+                    Delete Comment
+                  <% end %>
+                </div>
+              <% end %>
               <span class="pull-right"><%= comment.created_at.localtime.to_date %></span>
             </div>
             <div>
-              <span><%= best_in_place [resource, comment], :body, as: :textarea, inner_class: "form-control", activator: "#activator-#{comment.id}" %></span>
+              <span><%= best_in_place_if authenticate_user(comment), [resource, comment], :body, as: :textarea, inner_class: "form-control", activator: "#activator-#{comment.id}" %></span>
             </div>
           </div>
         </div>

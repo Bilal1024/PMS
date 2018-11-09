@@ -17,6 +17,10 @@
     <%= render 'admin/time_logs/time_logs', project: @project %>
   </div>
 
+  <div class="row">
+    <%= render 'admin/comments/comments', resource: @project %>
+  </div>
+
   <div class="link">
     <%= link_to 'Back', admin_projects_path, class: "btn btn-primary" %>
   </div>

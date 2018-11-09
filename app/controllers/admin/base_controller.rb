@@ -6,6 +6,6 @@ class Admin::BaseController < ApplicationController
   def admin_check
     return if current_user&.admin?
 
-    redirect_to root_path, error: 'Invalid access'
+    redirect_to root_path, flash: { error: 'Invalid access' }
   end
 end
