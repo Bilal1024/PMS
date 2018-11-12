@@ -3,7 +3,7 @@
     <div class="card-header card-header-tabs card-header-primary">
       <h4 class="card-title">Payments
         <% if current_user.manager? %>
-          <a class="pull-right" href="#" data-toggle="modal" data-target="#PaymentModal">
+          <a class="pull-right" href="#" data-toggle="modal" data-target="#payment_modal">
             <i class="material-icons">add</i>
           </a>
         <% end %>
@@ -36,7 +36,7 @@
       </table>
     </div>
     <% if current_user.manager? %>
-      <div class="modal" id="PaymentModal">
+      <div class="modal" id="payment_modal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">

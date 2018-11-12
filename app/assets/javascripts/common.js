@@ -7,7 +7,6 @@ $(document).ready(function() {
 
   $(document).on('best_in_place:error', function (event, data, status, xhr) {
     var parsed_data = jQuery.parseJSON(data.responseText);
-    $('.flash').html("");
     $(parsed_data).each(function () {
       showNotification('danger', this, "error")
     })

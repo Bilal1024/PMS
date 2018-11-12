@@ -1,11 +1,9 @@
 $(".form-group").removeClass("has-danger");
 $(".notice").remove();
 
-<% if @comment.errors.any? %>
-  <% if @comment.errors[:body].any? %>
-    $("#bodyBlock").append('<%= errors_div @comment, :body %>');
-    $("#bodyBlock").closest(".form-group").addClass("has-danger");
-  <% end %>
+<% if @comment.errors[:body].any? %>
+  $("#body_block").append('<%= errors_div @comment, :body %>');
+  $("#body_block").closest(".form-group").addClass("has-danger");
 <% else %>
   <%= render 'shared/notification', flash: flash %>
   $(".comments .comment-holder").append('<%=j render "admin/comments/comment", resource: @commentable, comment: @comment %>')

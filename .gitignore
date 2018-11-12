@@ -25,3 +25,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/public/system/attachments
+/public/system/.DS_Store
+/public/.DS_Store
+.DS_Store
