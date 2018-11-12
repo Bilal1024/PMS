@@ -22,7 +22,7 @@ class User < ApplicationRecord
 
   scope :non_admin_users, -> { where.not(role: :admin) }
 
-  accepts_nested_attributes_for :attachment, allow_destroy: true
+  accepts_nested_attributes_for :attachment
 
   attr_writer :login
 

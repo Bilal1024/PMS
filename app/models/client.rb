@@ -6,5 +6,5 @@ class Client < ApplicationRecord
 
   validates :attachment, presence: true
   validates :name, presence: true, uniqueness: { case_sensitive: false }, format: { with: /^[a-zA-Z0-9 _\.]*$/, multiline: true }
-  accepts_nested_attributes_for :attachment, allow_destroy: true
+  accepts_nested_attributes_for :attachment
 end

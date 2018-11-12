@@ -7,8 +7,7 @@ class Admin::CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.new(comment_params)
     @comment.user = current_user
-
-    flash.now[:notice] = 'Comment was created successfully.' if @comment.save
+    @comment.save
   end
 
   def update
@@ -17,9 +16,8 @@ class Admin::CommentsController < ApplicationController
   end
 
   def destroy
-    flash[:notice] = 'Comment was deleted successfully.' if @comment.destroy
-
-    redirect_back fallback_location: root_path
+    @comment.destroy
+    redirect_to admin_project_path(@commentable), notice: 'Comment was deleted successfully.'
   end
 
   private

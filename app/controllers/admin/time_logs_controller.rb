@@ -5,9 +5,7 @@ class Admin::TimeLogsController < Admin::BaseController
   before_action :set_time_log, only: %i[update destroy]
 
   def create
-    @time_log = @project.time_logs.new(time_log_params)
-
-    flash.now[:notice] = 'TimeLog was created successfully.' if @time_log.save
+    @time_log = @project.time_logs.create(time_log_params)
   end
 
   def update

@@ -8,8 +8,7 @@ class TimeLogsController < ApplicationController
   def create
     @time_log = @project.time_logs.new(time_log_params)
     @time_log.user = current_user
-
-    flash.now[:notice] = 'TimeLog was created successfully.' if @time_log.save
+    @time_log.save
   end
 
   def update

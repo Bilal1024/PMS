@@ -9,6 +9,7 @@ class ProjectsController < ManagerController
 
   def new
     @project = Project.new
+    @attachment = @project.attachments.build
   end
 
   def create
@@ -36,12 +37,14 @@ class ProjectsController < ManagerController
     redirect_to projects_path, notice: 'Project was deleted successfully.'
   end
 
-  def edit; end
+  def edit
+    @attachment = @project.attachments || @project.attachments.build
+  end
 
   private
 
   def project_params
-    params.require(:project).permit(:name, :description, :client_id)
+    params.require(:project).permit(:name, :description, :client_id, attachments_attributes: %i[id avatar _destroy])
   end
 
   def set_project

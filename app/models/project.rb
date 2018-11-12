@@ -6,6 +6,8 @@ class Project < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :attachments, as: :attachable, dependent: :destroy
 
+  accepts_nested_attributes_for :attachments, allow_destroy: true
+
   belongs_to :client
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, format: { with: /^[a-zA-Z0-9 _\.]*$/, multiline: true }

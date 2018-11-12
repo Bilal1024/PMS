@@ -5,7 +5,7 @@ $(".notice").remove();
   $("#body_block").append('<%= errors_div @comment, :body %>');
   $("#body_block").closest(".form-group").addClass("has-danger");
 <% else %>
-  <%= render 'shared/notification', flash: flash %>
+  showNotification('success', 'Comment was created successfully.', 'done')
   $(".comments .comment-holder").append('<%=j render "admin/comments/comment", resource: @commentable, comment: @comment %>')
   $("#comment_body").val("")
 <% end %>

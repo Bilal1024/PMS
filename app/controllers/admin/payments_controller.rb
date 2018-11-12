@@ -5,9 +5,7 @@ class Admin::PaymentsController < Admin::BaseController
   before_action :set_payment, only: %i[destroy update]
 
   def create
-    @payment = @project.payments.new(payment_params)
-
-    flash.now[:notice] = 'Payment was created successfully.' if @payment.save
+    @payment = @project.payments.create(payment_params)
   end
 
   def update
