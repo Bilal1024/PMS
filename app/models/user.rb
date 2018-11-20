@@ -1,38 +1,46 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
+  has_one :attachment, as: :attachable, dependent: :destroy
+
+  has_many :time_logs, dependent: :destroy
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          authentication_keys: [:login]
 
   validate :validate_username
-  validates :username, presence: :true, uniqueness: { case_sensitive: false }, format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true }
+  validates :username, presence: true, uniqueness: { case_sensitive: false }, format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true }
+  validates :attachment, presence: true
 
   ADMIN = 'admin'
 
-  enum role: [:admin, :manager, :user]
+  enum role: %i[admin manager user]
 
   scope :non_admin_users, -> { where.not(role: :admin) }
+
+  accepts_nested_attributes_for :attachment
 
   attr_writer :login
 
   def login
-    @login || self.username || self.email
+    @login || username || email
   end
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
+    if (login = conditions.delete(:login))
       where(conditions.to_h).where(['lower(username) = :value OR lower(email) = :value', { value: login.downcase }]).first
-    elsif conditions.has_key?(:username) || conditions.has_key?(:email)
+    elsif conditions.key?(:username) || conditions.key?(:email)
       where(conditions.to_h).first
     end
   end
 
   def validate_username
-    if User.where(email: username).exists?
-      errors.add(:username, :invalid)
-    end
+    errors.add(:username, :invalid) if User.where(email: username).exists?
   end
 
   def active_for_authentication?
@@ -44,6 +52,6 @@ class User < ApplicationRecord
   end
 
   def toggle_active
-    self.update(active: !self.active)
+    update(active: !active)
   end
 end

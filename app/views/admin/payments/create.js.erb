@@ -1,0 +1,14 @@
+$(".form-group").removeClass("has-danger");
+$(".notice").remove();
+
+<% if @payment.errors[:amount].any? %>
+  $("#amount_block").append('<%= errors_div @payment, :amount %>');
+  $("#amount_block").closest(".form-group").addClass("has-danger");
+<% else %>
+  showNotification('success', 'Payment was created successfully.', 'done')
+  $(".payments tbody").append('<%=j render "admin/payments/payment", project: @project, payment: @payment %>')
+  $("#payment_modal").modal("toggle");
+  $("#payment_modal input").each(function (){
+    $(this).val("");
+  })
+<% end %>

@@ -1,36 +1,40 @@
 <%= form_for [:admin, @user] do |f| %>
   <div class="row">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="form-group <%= error_class @user, :username %>">
         <%= f.label :username, class: "bmd-label-floating" %>
         <%= f.text_field :username, class: "form-control" %>
+        <%= errors_div @user, :username %>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="form-group <%= error_class @user, :email %>">
         <%= f.label :email, class: "bmd-label-floating" %>
         <%= f.email_field :email, class: "form-control" %>
+        <%= errors_div @user, :email %>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="form-group <%= error_class @user, :password %>">
         <%= f.label :password, class: "bmd-label-floating" %>
         <%= f.password_field :password, class: "form-control" %>
+        <%= errors_div @user, :password %>
       </div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="form-group <%= error_class @user, :password_confirmation %>">
         <%= f.label :password_confirmation, class: "bmd-label-floating" %>
         <%= f.password_field :password_confirmation, class: "form-control" %>
+        <%= errors_div @user, :password_confirmation %>
       </div>
     </div>
   </div>
@@ -45,10 +49,28 @@
     <% end %>
   </div>
 
-  <div class='field form-group'>
-   <%= f.label :role %>
-   <%= f.select :role, roles_list, {}, { class: "form-control" } %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class='form-group'>
+        <%= f.label :role, class: "bmd-label-floating" %>
+        <%= f.select :role, roles_list, {}, { class: "form-control" } %>
+      </div>
+    </div>
   </div>
+
+  <%= f.fields_for :attachment, build_attachment_association(@user) do |picture| %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group <%= attachment_error_class @user, [:attachment, :"attachment.avatar_content_type", :"attachment.avatar"] %>">
+          <%= picture.label :avatar, class: "bmd-label-floating" %>
+          <%= picture.file_field :avatar, class: "form-control" %>
+          <%= attachment_errors_div @user, [:attachment, :"attachment.avatar_content_type", :"attachment.avatar"] %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%= @user.errors.inspect %>
 
   <%= f.submit class: "btn btn-primary col-md-12" %>
 

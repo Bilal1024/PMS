@@ -1,0 +1,13 @@
+<%= form_for [project, comment], remote: true do |f| %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :leave_a_comment, class: "bmd-label-floating" %>
+        <%= f.text_area :body, class: "form-control" %>
+        <span id="body_block" class="help-block"></span>
+      </div>
+    </div>
+  </div>
+
+  <%= f.submit class: "btn btn-primary pull-right" %>
+<% end %>

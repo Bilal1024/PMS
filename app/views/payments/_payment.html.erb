@@ -1,0 +1,12 @@
+<tr>
+  <td>
+    <%= best_in_place [project, payment], :amount, as: :input, html_attrs: { type: :number }, inner_class: "form-control", class: "btn btn-primary btn-link btn-sm" %>
+  </td>
+  <% if current_user.manager? %>
+    <td>
+      <%= link_to project_payment_path(project, payment), { rel: "tooltip", title: "Delete Payment", class: "btn btn-primary btn-link btn-sm", method: :delete, data: { confirm: 'Are you sure?' } }  do %>
+        <i class="material-icons">delete</i>
+      <% end %>
+    </td>
+  <% end %>
+</tr>

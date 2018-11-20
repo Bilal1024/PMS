@@ -1,0 +1,14 @@
+$(".form-group").removeClass("has-danger");
+$(".notice").remove();
+
+<% if @time_log.errors[:hours].any? %>
+  $("#hours_block").append('<%= errors_div @time_log, :hours %>');
+  $("#hours_block").closest(".form-group").addClass("has-danger");
+<% else %>
+  showNotification('success', 'TimeLog was created successfully.', 'done')
+  $(".time_logs tbody").append('<%=j render "time_logs/time_log", project: @project, time_log: @time_log %>')
+  $("#time_log_modal").modal("toggle");
+  $("#time_log_modal input").each(function (){
+    $(this).val("");
+  })
+<% end %>

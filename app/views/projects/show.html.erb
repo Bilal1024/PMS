@@ -1,0 +1,26 @@
+<div class="col-md-12">
+  <div class="card card-profile">
+    <div class="card-body">
+      <h4 class="card-title"><%= titleize(@project.name) %></h4>
+      <p class="card-description">
+        <%= @project.description %>
+      </p>
+      <%= control_links(@project) %>
+    </div>
+  </div>
+
+  <%= render 'shared/flash' %>
+
+  <div class="row">
+    <%= render 'payments/payments', project: @project %>
+    <%= render 'time_logs/time_logs', project: @project %>
+  </div>
+
+  <div class="row">
+    <%= render 'comments/comments', resource: @project %>
+  </div>
+  
+  <div class="link">
+    <%= link_to 'Back', projects_path, class: "btn btn-primary" %>
+  </div>
+</div>

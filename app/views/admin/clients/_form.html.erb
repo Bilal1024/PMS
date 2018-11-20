@@ -1,12 +1,25 @@
 <%= form_for [:admin, @client] do |f| %>
   <div class="row">
     <div class="col-md-12">
-      <div class="form-group">
+      <div class="form-group <%= error_class(@client, :name) %>">
         <%= f.label :name, class: "bmd-label-floating" %>
         <%= f.text_field :name, class: "form-control" %>
+        <%= errors_div @client, :name %>
       </div>
     </div>
   </div>
+
+  <%= f.fields_for :attachment, build_attachment_association(@client) do |picture| %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group <%= attachment_error_class @client, [:attachment, :"attachment.avatar_content_type", :"attachment.avatar"] %>">
+          <%= picture.label :avatar, class: "bmd-label-floating" %>
+          <%= picture.file_field :avatar, class: "form-control" %>
+          <%= attachment_errors_div @client, [:attachment, :"attachment.avatar_content_type", :"attachment.avatar"] %>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <%= f.submit class: "btn btn-primary col-md-12" %>
 

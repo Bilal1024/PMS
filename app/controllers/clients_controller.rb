@@ -1,6 +1,7 @@
-class ClientsController < ApplicationController
-  before_action :get_client, except: [:index, :new, :create]
-  before_action :manager_check, only: [:new, :create, :destroy, :edit]
+# frozen_string_literal: true
+
+class ClientsController < ManagerController
+  before_action :set_client, only: %i[update show destroy edit]
 
   def index
     @clients = Client.all
@@ -14,7 +15,7 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
 
     if @client.save
-      redirect_to clients_path
+      redirect_to clients_path, notice: 'Client was created successfully.'
     else
       render 'new'
     end
@@ -22,37 +23,28 @@ class ClientsController < ApplicationController
 
   def update
     if @client.update(client_params)
-      redirect_to client_path(@client)
+      redirect_to client_path(@client), notice: 'Client was updated successfully.'
     else
       render 'edit'
     end
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     @client.destroy
-    redirect_to clients_path
+    redirect_to clients_path, notice: 'Client was deleted successfully.'
   end
 
-  def edit
-  end
+  def edit; end
 
   private
 
   def client_params
-    params.require(:client).permit(:name)
+    params.require(:client).permit(:name, attachment_attributes: %i[id avatar])
   end
 
-  def get_client
+  def set_client
     @client = Client.find(params[:id])
-  end
-
-  def manager_check
-    unless current_user.manager?
-      flash[:error] = 'Only managers can access this part of the website'
-      redirect_to root_path
-    end
   end
 end

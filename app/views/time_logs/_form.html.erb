@@ -1,0 +1,11 @@
+<%= form_for [project, time_log], remote: true do |f| %>
+  <div class="col-md-12">
+    <div class="form-group">
+      <%= f.label :hours, class: "bmd-label-floating" %>
+      <%= f.number_field :hours, class: "form-control" %>
+      <span id="hours_block" class="help-block"></span>
+    </div>
+
+    <%= f.submit class: "btn btn-primary pull-right" %>
+  </div>
+<% end %>

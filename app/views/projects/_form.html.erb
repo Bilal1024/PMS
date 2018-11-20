@@ -1,0 +1,49 @@
+<%= form_for project do |f| %>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group <%= error_class project, :name %>">
+        <%= f.label :name, class: "bmd-label-floating" %>
+        <%= f.text_field :name, class: "form-control" %>
+        <%= errors_div project, :name %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group <%= error_class project, :description %> %>">
+        <%= f.label :description, class: "bmd-label-floating" %>
+        <%= f.text_area :description, class: "form-control" %>
+        <%= errors_div project, :description %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group <%= error_class project, :client %>">
+        <%= f.label :client %>
+        <%= f.collection_select :client_id, Client.all, :id, :name, {}, { class: "form-control" } %>
+        <%= errors_div project, :client %>
+      </div>
+    </div>
+  </div>
+
+   <%= f.fields_for :attachments, @attachment do |picture| %>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group <%= attachment_error_class project, [:attachments, :"attachments.avatar_content_type", :"attachments.avatar"] %>">
+          <%= picture.label :avatar, "Attachment", class: "bmd-label-floating" %>
+          <%= picture.file_field :avatar, class: "form-control" %>
+          <%= attachment_errors_div project, [:attachments, :"attachments.avatar_content_type", :"attachments.avatar"] %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%= f.submit class: "btn btn-primary col-md-12" %>
+
+  <div class="link">
+    <%= link_to 'Back', projects_path %>
+  </div>
+<% end %>
